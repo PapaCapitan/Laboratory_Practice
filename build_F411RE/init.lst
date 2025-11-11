@@ -1,0 +1,753 @@
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"init.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Scr/init.c"
+  20              		.section	.text.Register_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	Register_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	Register_Init:
+  28              	.LFB130:
+   1:Core/Scr/init.c **** #include "../Inc/init.h"
+   2:Core/Scr/init.c **** 
+   3:Core/Scr/init.c **** static uint8_t i = 0;
+   4:Core/Scr/init.c **** 
+   5:Core/Scr/init.c **** void Register_Init(void)
+   6:Core/Scr/init.c **** {
+  29              		.loc 1 6 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+   7:Core/Scr/init.c ****     SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN | RCC_AHB1ENR_GPIOBEN | RCC_AHB1ENR_GPIOCEN);
+  34              		.loc 1 7 5 view .LVU1
+  35 0000 024A     		ldr	r2, .L2
+  36 0002 136B     		ldr	r3, [r2, #48]
+  37 0004 43F00703 		orr	r3, r3, #7
+  38 0008 1363     		str	r3, [r2, #48]
+   8:Core/Scr/init.c **** }
+  39              		.loc 1 8 1 is_stmt 0 view .LVU2
+  40 000a 7047     		bx	lr
+  41              	.L3:
+  42              		.align	2
+  43              	.L2:
+  44 000c 00380240 		.word	1073887232
+  45              		.cfi_endproc
+  46              	.LFE130:
+  48              		.section	.text.Led_Init,"ax",%progbits
+  49              		.align	1
+  50              		.global	Led_Init
+  51              		.syntax unified
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 2
+
+
+  52              		.thumb
+  53              		.thumb_func
+  55              	Led_Init:
+  56              	.LFB131:
+   9:Core/Scr/init.c **** void Led_Init(void)
+  10:Core/Scr/init.c **** {
+  57              		.loc 1 10 1 is_stmt 1 view -0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 0, uses_anonymous_args = 0
+  61              		@ link register save eliminated.
+  11:Core/Scr/init.c ****     // First Led (green)
+  12:Core/Scr/init.c ****     SET_BIT(GPIOA->MODER, GPIO_MODER_MODE4_0);
+  62              		.loc 1 12 5 view .LVU4
+  63 0000 1A4B     		ldr	r3, .L5
+  64 0002 1A68     		ldr	r2, [r3]
+  65 0004 42F48072 		orr	r2, r2, #256
+  66 0008 1A60     		str	r2, [r3]
+  13:Core/Scr/init.c ****     CLEAR_BIT(GPIOA->OTYPER, GPIO_OTYPER_OT_4);
+  67              		.loc 1 13 5 view .LVU5
+  68 000a 5A68     		ldr	r2, [r3, #4]
+  69 000c 22F01002 		bic	r2, r2, #16
+  70 0010 5A60     		str	r2, [r3, #4]
+  14:Core/Scr/init.c ****     SET_BIT(GPIOA->OSPEEDR, GPIO_OSPEEDR_OSPEED4_0);
+  71              		.loc 1 14 5 view .LVU6
+  72 0012 9A68     		ldr	r2, [r3, #8]
+  73 0014 42F48072 		orr	r2, r2, #256
+  74 0018 9A60     		str	r2, [r3, #8]
+  15:Core/Scr/init.c ****     CLEAR_BIT(GPIOA->PUPDR, GPIO_PUPDR_PUPDR4_0);
+  75              		.loc 1 15 5 view .LVU7
+  76 001a DA68     		ldr	r2, [r3, #12]
+  77 001c 22F48072 		bic	r2, r2, #256
+  78 0020 DA60     		str	r2, [r3, #12]
+  16:Core/Scr/init.c ****     // Second Led (blue)
+  17:Core/Scr/init.c ****     SET_BIT(GPIOB->MODER, GPIO_MODER_MODE0_0);
+  79              		.loc 1 17 5 view .LVU8
+  80 0022 03F58063 		add	r3, r3, #1024
+  81 0026 1A68     		ldr	r2, [r3]
+  82 0028 42F00102 		orr	r2, r2, #1
+  83 002c 1A60     		str	r2, [r3]
+  18:Core/Scr/init.c ****     CLEAR_BIT(GPIOB->OTYPER, GPIO_OTYPER_OT_0);
+  84              		.loc 1 18 5 view .LVU9
+  85 002e 5A68     		ldr	r2, [r3, #4]
+  86 0030 22F00102 		bic	r2, r2, #1
+  87 0034 5A60     		str	r2, [r3, #4]
+  19:Core/Scr/init.c ****     SET_BIT(GPIOB->OSPEEDR, GPIO_OSPEEDR_OSPEED0_0);
+  88              		.loc 1 19 5 view .LVU10
+  89 0036 9A68     		ldr	r2, [r3, #8]
+  90 0038 42F00102 		orr	r2, r2, #1
+  91 003c 9A60     		str	r2, [r3, #8]
+  20:Core/Scr/init.c ****     CLEAR_BIT(GPIOB->PUPDR, GPIO_PUPDR_PUPDR0_0);
+  92              		.loc 1 20 5 view .LVU11
+  93 003e DA68     		ldr	r2, [r3, #12]
+  94 0040 22F00102 		bic	r2, r2, #1
+  95 0044 DA60     		str	r2, [r3, #12]
+  21:Core/Scr/init.c ****     // Third Led (red)
+  22:Core/Scr/init.c ****     SET_BIT(GPIOC->MODER, GPIO_MODER_MODE1_0);
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 3
+
+
+  96              		.loc 1 22 5 view .LVU12
+  97 0046 03F58063 		add	r3, r3, #1024
+  98 004a 1A68     		ldr	r2, [r3]
+  99 004c 42F00402 		orr	r2, r2, #4
+ 100 0050 1A60     		str	r2, [r3]
+  23:Core/Scr/init.c ****     CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_1);
+ 101              		.loc 1 23 5 view .LVU13
+ 102 0052 5A68     		ldr	r2, [r3, #4]
+ 103 0054 22F00202 		bic	r2, r2, #2
+ 104 0058 5A60     		str	r2, [r3, #4]
+  24:Core/Scr/init.c ****     SET_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED1_0);
+ 105              		.loc 1 24 5 view .LVU14
+ 106 005a 9A68     		ldr	r2, [r3, #8]
+ 107 005c 42F00402 		orr	r2, r2, #4
+ 108 0060 9A60     		str	r2, [r3, #8]
+  25:Core/Scr/init.c ****     CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR1_0);
+ 109              		.loc 1 25 5 view .LVU15
+ 110 0062 DA68     		ldr	r2, [r3, #12]
+ 111 0064 22F00402 		bic	r2, r2, #4
+ 112 0068 DA60     		str	r2, [r3, #12]
+  26:Core/Scr/init.c **** }
+ 113              		.loc 1 26 1 is_stmt 0 view .LVU16
+ 114 006a 7047     		bx	lr
+ 115              	.L6:
+ 116              		.align	2
+ 117              	.L5:
+ 118 006c 00000240 		.word	1073872896
+ 119              		.cfi_endproc
+ 120              	.LFE131:
+ 122              		.section	.text.delay_but,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	delay_but
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 129              	delay_but:
+ 130              	.LFB132:
+  27:Core/Scr/init.c **** void delay_but(void)
+  28:Core/Scr/init.c **** {
+ 131              		.loc 1 28 1 is_stmt 1 view -0
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 0
+ 134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 135              		@ link register save eliminated.
+  29:Core/Scr/init.c ****     uint16_t count = 0;
+ 136              		.loc 1 29 5 view .LVU18
+ 137              	.LVL0:
+  30:Core/Scr/init.c ****     for (long int j = 0; j < 500000; j++)
+ 138              		.loc 1 30 5 view .LVU19
+ 139              	.LBB2:
+ 140              		.loc 1 30 10 view .LVU20
+ 141              		.loc 1 30 19 is_stmt 0 view .LVU21
+ 142 0000 0023     		movs	r3, #0
+ 143              		.loc 1 30 5 view .LVU22
+ 144 0002 00E0     		b	.L8
+ 145              	.LVL1:
+ 146              	.L9:
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 4
+
+
+  31:Core/Scr/init.c ****     {
+  32:Core/Scr/init.c ****         count++;
+ 147              		.loc 1 32 9 is_stmt 1 view .LVU23
+  30:Core/Scr/init.c ****     for (long int j = 0; j < 500000; j++)
+ 148              		.loc 1 30 39 discriminator 3 view .LVU24
+ 149 0004 0133     		adds	r3, r3, #1
+ 150              	.LVL2:
+ 151              	.L8:
+  30:Core/Scr/init.c ****     for (long int j = 0; j < 500000; j++)
+ 152              		.loc 1 30 28 discriminator 1 view .LVU25
+ 153 0006 024A     		ldr	r2, .L10
+ 154 0008 9342     		cmp	r3, r2
+ 155 000a FBDD     		ble	.L9
+ 156              	.LBE2:
+  33:Core/Scr/init.c ****     }
+  34:Core/Scr/init.c **** }
+ 157              		.loc 1 34 1 is_stmt 0 view .LVU26
+ 158 000c 7047     		bx	lr
+ 159              	.L11:
+ 160 000e 00BF     		.align	2
+ 161              	.L10:
+ 162 0010 1FA10700 		.word	499999
+ 163              		.cfi_endproc
+ 164              	.LFE132:
+ 166              		.section	.text.but,"ax",%progbits
+ 167              		.align	1
+ 168              		.global	but
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ 173              	but:
+ 174              	.LVL3:
+ 175              	.LFB133:
+  35:Core/Scr/init.c **** void but(uint8_t led[][2])
+  36:Core/Scr/init.c **** {
+ 176              		.loc 1 36 1 is_stmt 1 view -0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+  37:Core/Scr/init.c ****     if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_8) != 0)
+ 181              		.loc 1 37 5 view .LVU28
+ 182              		.loc 1 37 9 is_stmt 0 view .LVU29
+ 183 0000 1D4B     		ldr	r3, .L23
+ 184 0002 1B69     		ldr	r3, [r3, #16]
+ 185              		.loc 1 37 8 view .LVU30
+ 186 0004 13F4807F 		tst	r3, #256
+ 187 0008 07D0     		beq	.L13
+  38:Core/Scr/init.c ****     {
+  39:Core/Scr/init.c ****         delay_but();
+ 188              		.loc 1 39 9 is_stmt 1 view .LVU31
+  40:Core/Scr/init.c ****         if (led[i][0] == 0)
+ 189              		.loc 1 40 9 view .LVU32
+ 190              		.loc 1 40 16 is_stmt 0 view .LVU33
+ 191 000a 1C4B     		ldr	r3, .L23+4
+ 192 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 193              		.loc 1 40 19 view .LVU34
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 5
+
+
+ 194 000e 10F81320 		ldrb	r2, [r0, r3, lsl #1]	@ zero_extendqisi2
+ 195              		.loc 1 40 12 view .LVU35
+ 196 0012 DAB9     		cbnz	r2, .L14
+  41:Core/Scr/init.c ****         {
+  42:Core/Scr/init.c ****             led[i][0] = 1;
+ 197              		.loc 1 42 13 is_stmt 1 view .LVU36
+ 198              		.loc 1 42 23 is_stmt 0 view .LVU37
+ 199 0014 0122     		movs	r2, #1
+ 200 0016 00F81320 		strb	r2, [r0, r3, lsl #1]
+ 201              	.L13:
+  43:Core/Scr/init.c ****         }
+  44:Core/Scr/init.c ****         else
+  45:Core/Scr/init.c ****         {
+  46:Core/Scr/init.c ****             led[i][0] = 0;
+  47:Core/Scr/init.c ****         }
+  48:Core/Scr/init.c ****     }
+  49:Core/Scr/init.c ****     if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_6) != 0)
+ 202              		.loc 1 49 5 is_stmt 1 view .LVU38
+ 203              		.loc 1 49 9 is_stmt 0 view .LVU39
+ 204 001a 174B     		ldr	r3, .L23
+ 205 001c 1B69     		ldr	r3, [r3, #16]
+ 206              		.loc 1 49 8 view .LVU40
+ 207 001e 13F0400F 		tst	r3, #64
+ 208 0022 07D0     		beq	.L15
+  50:Core/Scr/init.c ****     {
+  51:Core/Scr/init.c ****         delay_but();
+ 209              		.loc 1 51 9 is_stmt 1 view .LVU41
+  52:Core/Scr/init.c ****         if (led[i][1] == 0)
+ 210              		.loc 1 52 9 view .LVU42
+ 211              		.loc 1 52 16 is_stmt 0 view .LVU43
+ 212 0024 154B     		ldr	r3, .L23+4
+ 213 0026 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 214 0028 00EB4300 		add	r0, r0, r3, lsl #1
+ 215              	.LVL4:
+ 216              		.loc 1 52 19 view .LVU44
+ 217 002c 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 218              		.loc 1 52 12 view .LVU45
+ 219 002e 8BB9     		cbnz	r3, .L16
+  53:Core/Scr/init.c ****         {
+  54:Core/Scr/init.c ****             led[i][1] = 1;
+ 220              		.loc 1 54 13 is_stmt 1 view .LVU46
+ 221              		.loc 1 54 23 is_stmt 0 view .LVU47
+ 222 0030 0123     		movs	r3, #1
+ 223 0032 4370     		strb	r3, [r0, #1]
+ 224              	.L15:
+  55:Core/Scr/init.c ****         }
+  56:Core/Scr/init.c ****         else if (led[i][1] == 1)
+  57:Core/Scr/init.c ****         {
+  58:Core/Scr/init.c ****             led[i][1] = 2;
+  59:Core/Scr/init.c ****         }
+  60:Core/Scr/init.c ****         else
+  61:Core/Scr/init.c ****         {
+  62:Core/Scr/init.c ****             led[i][1] = 0;
+  63:Core/Scr/init.c ****         }
+  64:Core/Scr/init.c ****     }
+  65:Core/Scr/init.c ****     if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_5) != 0)
+ 225              		.loc 1 65 5 is_stmt 1 view .LVU48
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 6
+
+
+ 226              		.loc 1 65 9 is_stmt 0 view .LVU49
+ 227 0034 104B     		ldr	r3, .L23
+ 228 0036 1B69     		ldr	r3, [r3, #16]
+ 229              		.loc 1 65 8 view .LVU50
+ 230 0038 13F0200F 		tst	r3, #32
+ 231 003c 17D0     		beq	.L12
+  66:Core/Scr/init.c ****     {
+  67:Core/Scr/init.c ****         delay_but();
+ 232              		.loc 1 67 9 is_stmt 1 view .LVU51
+  68:Core/Scr/init.c ****         if (i == 0)
+ 233              		.loc 1 68 9 view .LVU52
+ 234              		.loc 1 68 15 is_stmt 0 view .LVU53
+ 235 003e 0F4B     		ldr	r3, .L23+4
+ 236 0040 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 237              		.loc 1 68 12 view .LVU54
+ 238 0042 7BB9     		cbnz	r3, .L19
+  69:Core/Scr/init.c ****         {
+  70:Core/Scr/init.c ****             i = 1;
+ 239              		.loc 1 70 13 is_stmt 1 view .LVU55
+ 240              		.loc 1 70 15 is_stmt 0 view .LVU56
+ 241 0044 0D4B     		ldr	r3, .L23+4
+ 242 0046 0122     		movs	r2, #1
+ 243 0048 1A70     		strb	r2, [r3]
+ 244 004a 7047     		bx	lr
+ 245              	.LVL5:
+ 246              	.L14:
+  46:Core/Scr/init.c ****         }
+ 247              		.loc 1 46 13 is_stmt 1 view .LVU57
+  46:Core/Scr/init.c ****         }
+ 248              		.loc 1 46 23 is_stmt 0 view .LVU58
+ 249 004c 0022     		movs	r2, #0
+ 250 004e 00F81320 		strb	r2, [r0, r3, lsl #1]
+ 251 0052 E2E7     		b	.L13
+ 252              	.LVL6:
+ 253              	.L16:
+  56:Core/Scr/init.c ****         {
+ 254              		.loc 1 56 14 is_stmt 1 view .LVU59
+  56:Core/Scr/init.c ****         {
+ 255              		.loc 1 56 17 is_stmt 0 view .LVU60
+ 256 0054 012B     		cmp	r3, #1
+ 257 0056 02D0     		beq	.L21
+  62:Core/Scr/init.c ****         }
+ 258              		.loc 1 62 13 is_stmt 1 view .LVU61
+  62:Core/Scr/init.c ****         }
+ 259              		.loc 1 62 23 is_stmt 0 view .LVU62
+ 260 0058 0023     		movs	r3, #0
+ 261 005a 4370     		strb	r3, [r0, #1]
+ 262 005c EAE7     		b	.L15
+ 263              	.L21:
+  58:Core/Scr/init.c ****         }
+ 264              		.loc 1 58 13 is_stmt 1 view .LVU63
+  58:Core/Scr/init.c ****         }
+ 265              		.loc 1 58 23 is_stmt 0 view .LVU64
+ 266 005e 0223     		movs	r3, #2
+ 267 0060 4370     		strb	r3, [r0, #1]
+ 268 0062 E7E7     		b	.L15
+ 269              	.L19:
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 7
+
+
+  71:Core/Scr/init.c ****         }
+  72:Core/Scr/init.c ****         else if (i == 1)
+ 270              		.loc 1 72 14 is_stmt 1 view .LVU65
+ 271              		.loc 1 72 17 is_stmt 0 view .LVU66
+ 272 0064 012B     		cmp	r3, #1
+ 273 0066 03D0     		beq	.L22
+  73:Core/Scr/init.c ****         {
+  74:Core/Scr/init.c ****             i = 2;
+  75:Core/Scr/init.c ****         }
+  76:Core/Scr/init.c ****         else 
+  77:Core/Scr/init.c ****         {
+  78:Core/Scr/init.c ****             i = 0;
+ 274              		.loc 1 78 13 is_stmt 1 view .LVU67
+ 275              		.loc 1 78 15 is_stmt 0 view .LVU68
+ 276 0068 044B     		ldr	r3, .L23+4
+ 277 006a 0022     		movs	r2, #0
+ 278 006c 1A70     		strb	r2, [r3]
+ 279              	.L12:
+  79:Core/Scr/init.c ****         }
+  80:Core/Scr/init.c ****     }
+  81:Core/Scr/init.c **** }
+ 280              		.loc 1 81 1 view .LVU69
+ 281 006e 7047     		bx	lr
+ 282              	.L22:
+  74:Core/Scr/init.c ****         }
+ 283              		.loc 1 74 13 is_stmt 1 view .LVU70
+  74:Core/Scr/init.c ****         }
+ 284              		.loc 1 74 15 is_stmt 0 view .LVU71
+ 285 0070 024B     		ldr	r3, .L23+4
+ 286 0072 0222     		movs	r2, #2
+ 287 0074 1A70     		strb	r2, [r3]
+ 288 0076 7047     		bx	lr
+ 289              	.L24:
+ 290              		.align	2
+ 291              	.L23:
+ 292 0078 00080240 		.word	1073874944
+ 293 007c 00000000 		.word	i
+ 294              		.cfi_endproc
+ 295              	.LFE133:
+ 297              		.section	.text.delay,"ax",%progbits
+ 298              		.align	1
+ 299              		.global	delay
+ 300              		.syntax unified
+ 301              		.thumb
+ 302              		.thumb_func
+ 304              	delay:
+ 305              	.LVL7:
+ 306              	.LFB134:
+  82:Core/Scr/init.c **** void delay(uint8_t a, uint8_t led[][2])
+  83:Core/Scr/init.c **** {
+ 307              		.loc 1 83 1 is_stmt 1 view -0
+ 308              		.cfi_startproc
+ 309              		@ args = 0, pretend = 0, frame = 0
+ 310              		@ frame_needed = 0, uses_anonymous_args = 0
+ 311              		.loc 1 83 1 is_stmt 0 view .LVU73
+ 312 0000 38B5     		push	{r3, r4, r5, lr}
+ 313              	.LCFI0:
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 8
+
+
+ 314              		.cfi_def_cfa_offset 16
+ 315              		.cfi_offset 3, -16
+ 316              		.cfi_offset 4, -12
+ 317              		.cfi_offset 5, -8
+ 318              		.cfi_offset 14, -4
+ 319 0002 0D46     		mov	r5, r1
+  84:Core/Scr/init.c ****     int count = 0;
+ 320              		.loc 1 84 5 is_stmt 1 view .LVU74
+ 321              	.LVL8:
+  85:Core/Scr/init.c ****     if (a == 0)
+ 322              		.loc 1 85 5 view .LVU75
+ 323              		.loc 1 85 8 is_stmt 0 view .LVU76
+ 324 0004 60B1     		cbz	r0, .L34
+  86:Core/Scr/init.c ****     {
+  87:Core/Scr/init.c ****         for (int j = 0; j < 30000; j++)
+  88:Core/Scr/init.c ****         {
+  89:Core/Scr/init.c ****             count++;
+  90:Core/Scr/init.c ****             but(led);
+  91:Core/Scr/init.c ****         }
+  92:Core/Scr/init.c ****     }
+  93:Core/Scr/init.c ****     else if (a == 1)
+ 325              		.loc 1 93 10 is_stmt 1 view .LVU77
+ 326              		.loc 1 93 13 is_stmt 0 view .LVU78
+ 327 0006 0128     		cmp	r0, #1
+ 328 0008 14D0     		beq	.L35
+ 329              	.LBB3:
+  94:Core/Scr/init.c ****     {
+  95:Core/Scr/init.c ****         for (int j = 0; j < 600000; j++)
+  96:Core/Scr/init.c ****         {
+  97:Core/Scr/init.c ****             count++;
+  98:Core/Scr/init.c ****             but(led);
+  99:Core/Scr/init.c ****         }
+ 100:Core/Scr/init.c ****     }
+ 101:Core/Scr/init.c ****     else
+ 102:Core/Scr/init.c ****     {
+ 103:Core/Scr/init.c ****         for (int j = 0; j < 900000; j++)
+ 330              		.loc 1 103 18 view .LVU79
+ 331 000a 0024     		movs	r4, #0
+ 332 000c 18E0     		b	.L31
+ 333              	.LVL9:
+ 334              	.L28:
+ 335              		.loc 1 103 18 view .LVU80
+ 336              	.LBE3:
+ 337              	.LBB4:
+  89:Core/Scr/init.c ****             but(led);
+ 338              		.loc 1 89 13 is_stmt 1 view .LVU81
+  90:Core/Scr/init.c ****         }
+ 339              		.loc 1 90 13 view .LVU82
+ 340 000e 2846     		mov	r0, r5
+ 341 0010 FFF7FEFF 		bl	but
+ 342              	.LVL10:
+  87:Core/Scr/init.c ****         {
+ 343              		.loc 1 87 37 discriminator 3 view .LVU83
+ 344 0014 0134     		adds	r4, r4, #1
+ 345              	.LVL11:
+ 346              	.L26:
+  87:Core/Scr/init.c ****         {
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 9
+
+
+ 347              		.loc 1 87 27 discriminator 1 view .LVU84
+ 348 0016 47F22F53 		movw	r3, #29999
+ 349 001a 9C42     		cmp	r4, r3
+ 350 001c F7DD     		ble	.L28
+ 351              	.LVL12:
+ 352              	.L25:
+  87:Core/Scr/init.c ****         {
+ 353              		.loc 1 87 27 is_stmt 0 discriminator 1 view .LVU85
+ 354              	.LBE4:
+ 104:Core/Scr/init.c ****         {
+ 105:Core/Scr/init.c ****             count++;
+ 106:Core/Scr/init.c ****             but(led);
+ 107:Core/Scr/init.c ****         }
+ 108:Core/Scr/init.c ****     }
+ 109:Core/Scr/init.c **** }
+ 355              		.loc 1 109 1 view .LVU86
+ 356 001e 38BD     		pop	{r3, r4, r5, pc}
+ 357              	.LVL13:
+ 358              	.L34:
+ 359              	.LBB5:
+  87:Core/Scr/init.c ****         {
+ 360              		.loc 1 87 18 view .LVU87
+ 361 0020 0024     		movs	r4, #0
+ 362 0022 F8E7     		b	.L26
+ 363              	.LVL14:
+ 364              	.L32:
+  87:Core/Scr/init.c ****         {
+ 365              		.loc 1 87 18 view .LVU88
+ 366              	.LBE5:
+ 367              	.LBB6:
+  97:Core/Scr/init.c ****             but(led);
+ 368              		.loc 1 97 13 is_stmt 1 view .LVU89
+  98:Core/Scr/init.c ****         }
+ 369              		.loc 1 98 13 view .LVU90
+ 370 0024 2846     		mov	r0, r5
+ 371 0026 FFF7FEFF 		bl	but
+ 372              	.LVL15:
+  95:Core/Scr/init.c ****         {
+ 373              		.loc 1 95 38 discriminator 3 view .LVU91
+ 374 002a 0134     		adds	r4, r4, #1
+ 375              	.LVL16:
+ 376              	.L30:
+  95:Core/Scr/init.c ****         {
+ 377              		.loc 1 95 27 discriminator 1 view .LVU92
+ 378 002c 064B     		ldr	r3, .L39
+ 379 002e 9C42     		cmp	r4, r3
+ 380 0030 F8DD     		ble	.L32
+ 381 0032 F4E7     		b	.L25
+ 382              	.LVL17:
+ 383              	.L35:
+  95:Core/Scr/init.c ****         {
+ 384              		.loc 1 95 18 is_stmt 0 view .LVU93
+ 385 0034 0024     		movs	r4, #0
+ 386 0036 F9E7     		b	.L30
+ 387              	.LVL18:
+ 388              	.L33:
+  95:Core/Scr/init.c ****         {
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 10
+
+
+ 389              		.loc 1 95 18 view .LVU94
+ 390              	.LBE6:
+ 391              	.LBB7:
+ 105:Core/Scr/init.c ****             but(led);
+ 392              		.loc 1 105 13 is_stmt 1 view .LVU95
+ 106:Core/Scr/init.c ****         }
+ 393              		.loc 1 106 13 view .LVU96
+ 394 0038 2846     		mov	r0, r5
+ 395 003a FFF7FEFF 		bl	but
+ 396              	.LVL19:
+ 103:Core/Scr/init.c ****         {
+ 397              		.loc 1 103 38 discriminator 3 view .LVU97
+ 398 003e 0134     		adds	r4, r4, #1
+ 399              	.LVL20:
+ 400              	.L31:
+ 103:Core/Scr/init.c ****         {
+ 401              		.loc 1 103 27 discriminator 1 view .LVU98
+ 402 0040 024B     		ldr	r3, .L39+4
+ 403 0042 9C42     		cmp	r4, r3
+ 404 0044 F8DD     		ble	.L33
+ 405 0046 EAE7     		b	.L25
+ 406              	.L40:
+ 407              		.align	2
+ 408              	.L39:
+ 409 0048 BF270900 		.word	599999
+ 410 004c 9FBB0D00 		.word	899999
+ 411              	.LBE7:
+ 412              		.cfi_endproc
+ 413              	.LFE134:
+ 415              		.section	.text.work,"ax",%progbits
+ 416              		.align	1
+ 417              		.global	work
+ 418              		.syntax unified
+ 419              		.thumb
+ 420              		.thumb_func
+ 422              	work:
+ 423              	.LVL21:
+ 424              	.LFB135:
+ 110:Core/Scr/init.c **** void work(uint8_t led[][2])
+ 111:Core/Scr/init.c **** {
+ 425              		.loc 1 111 1 view -0
+ 426              		.cfi_startproc
+ 427              		@ args = 0, pretend = 0, frame = 0
+ 428              		@ frame_needed = 0, uses_anonymous_args = 0
+ 429              		.loc 1 111 1 is_stmt 0 view .LVU100
+ 430 0000 38B5     		push	{r3, r4, r5, lr}
+ 431              	.LCFI1:
+ 432              		.cfi_def_cfa_offset 16
+ 433              		.cfi_offset 3, -16
+ 434              		.cfi_offset 4, -12
+ 435              		.cfi_offset 5, -8
+ 436              		.cfi_offset 14, -4
+ 437 0002 0446     		mov	r4, r0
+ 112:Core/Scr/init.c ****     if (led[0][0] == 1)
+ 438              		.loc 1 112 5 is_stmt 1 view .LVU101
+ 439              		.loc 1 112 15 is_stmt 0 view .LVU102
+ 440 0004 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 11
+
+
+ 441              		.loc 1 112 8 view .LVU103
+ 442 0006 012B     		cmp	r3, #1
+ 443 0008 06D0     		beq	.L46
+ 444              	.LVL22:
+ 445              	.L42:
+ 113:Core/Scr/init.c ****     {
+ 114:Core/Scr/init.c ****         SET_BIT(GPIOA->BSRR, GPIO_BSRR_BS4);
+ 115:Core/Scr/init.c ****         delay(led[0][1], led);
+ 116:Core/Scr/init.c ****         SET_BIT(GPIOA->BSRR, GPIO_BSRR_BR4);
+ 117:Core/Scr/init.c ****     }
+ 118:Core/Scr/init.c ****     if (led[1][0] == 1)
+ 446              		.loc 1 118 5 is_stmt 1 view .LVU104
+ 447              		.loc 1 118 15 is_stmt 0 view .LVU105
+ 448 000a A378     		ldrb	r3, [r4, #2]	@ zero_extendqisi2
+ 449              		.loc 1 118 8 view .LVU106
+ 450 000c 012B     		cmp	r3, #1
+ 451 000e 11D0     		beq	.L47
+ 452              	.L43:
+ 119:Core/Scr/init.c ****     {
+ 120:Core/Scr/init.c ****         SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS0);
+ 121:Core/Scr/init.c ****         delay(led[1][1], led);
+ 122:Core/Scr/init.c ****         SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR0);
+ 123:Core/Scr/init.c ****     }
+ 124:Core/Scr/init.c ****     if (led[2][0] == 1)
+ 453              		.loc 1 124 5 is_stmt 1 view .LVU107
+ 454              		.loc 1 124 15 is_stmt 0 view .LVU108
+ 455 0010 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+ 456              		.loc 1 124 8 view .LVU109
+ 457 0012 012B     		cmp	r3, #1
+ 458 0014 1CD0     		beq	.L48
+ 459              	.L41:
+ 125:Core/Scr/init.c ****     {
+ 126:Core/Scr/init.c ****         SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS1);
+ 127:Core/Scr/init.c ****         delay(led[2][1], led);
+ 128:Core/Scr/init.c ****         SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR1);
+ 129:Core/Scr/init.c ****     }
+ 130:Core/Scr/init.c **** }...
+ 460              		.loc 1 130 1 view .LVU110
+ 461 0016 38BD     		pop	{r3, r4, r5, pc}
+ 462              	.LVL23:
+ 463              	.L46:
+ 114:Core/Scr/init.c ****         SET_BIT(GPIOA->BSRR, GPIO_BSRR_BS4);
+ 464              		.loc 1 114 9 is_stmt 1 view .LVU111
+ 465 0018 144D     		ldr	r5, .L49
+ 466 001a AB69     		ldr	r3, [r5, #24]
+ 467 001c 43F01003 		orr	r3, r3, #16
+ 468 0020 AB61     		str	r3, [r5, #24]
+ 115:Core/Scr/init.c ****         delay(led[0][1], led);
+ 469              		.loc 1 115 9 view .LVU112
+ 470 0022 0146     		mov	r1, r0
+ 471 0024 4078     		ldrb	r0, [r0, #1]	@ zero_extendqisi2
+ 472              	.LVL24:
+ 115:Core/Scr/init.c ****         delay(led[0][1], led);
+ 473              		.loc 1 115 9 is_stmt 0 view .LVU113
+ 474 0026 FFF7FEFF 		bl	delay
+ 475              	.LVL25:
+ 116:Core/Scr/init.c ****         SET_BIT(GPIOA->BSRR, GPIO_BSRR_BR4);
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 12
+
+
+ 476              		.loc 1 116 9 is_stmt 1 view .LVU114
+ 477 002a AB69     		ldr	r3, [r5, #24]
+ 478 002c 43F48013 		orr	r3, r3, #1048576
+ 479 0030 AB61     		str	r3, [r5, #24]
+ 480 0032 EAE7     		b	.L42
+ 481              	.L47:
+ 120:Core/Scr/init.c ****         SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS0);
+ 482              		.loc 1 120 9 view .LVU115
+ 483 0034 0E4D     		ldr	r5, .L49+4
+ 484 0036 AB69     		ldr	r3, [r5, #24]
+ 485 0038 43F00103 		orr	r3, r3, #1
+ 486 003c AB61     		str	r3, [r5, #24]
+ 121:Core/Scr/init.c ****         delay(led[1][1], led);
+ 487              		.loc 1 121 9 view .LVU116
+ 488 003e 2146     		mov	r1, r4
+ 489 0040 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 490 0042 FFF7FEFF 		bl	delay
+ 491              	.LVL26:
+ 122:Core/Scr/init.c ****         SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR0);
+ 492              		.loc 1 122 9 view .LVU117
+ 493 0046 AB69     		ldr	r3, [r5, #24]
+ 494 0048 43F48033 		orr	r3, r3, #65536
+ 495 004c AB61     		str	r3, [r5, #24]
+ 496 004e DFE7     		b	.L43
+ 497              	.L48:
+ 126:Core/Scr/init.c ****         SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS1);
+ 498              		.loc 1 126 9 view .LVU118
+ 499 0050 084D     		ldr	r5, .L49+8
+ 500 0052 AB69     		ldr	r3, [r5, #24]
+ 501 0054 43F00203 		orr	r3, r3, #2
+ 502 0058 AB61     		str	r3, [r5, #24]
+ 127:Core/Scr/init.c ****         delay(led[2][1], led);
+ 503              		.loc 1 127 9 view .LVU119
+ 504 005a 2146     		mov	r1, r4
+ 505 005c 6079     		ldrb	r0, [r4, #5]	@ zero_extendqisi2
+ 506 005e FFF7FEFF 		bl	delay
+ 507              	.LVL27:
+ 128:Core/Scr/init.c ****         SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR1);
+ 508              		.loc 1 128 9 view .LVU120
+ 509 0062 AB69     		ldr	r3, [r5, #24]
+ 510 0064 43F40033 		orr	r3, r3, #131072
+ 511 0068 AB61     		str	r3, [r5, #24]
+ 512              		.loc 1 130 1 is_stmt 0 view .LVU121
+ 513 006a D4E7     		b	.L41
+ 514              	.L50:
+ 515              		.align	2
+ 516              	.L49:
+ 517 006c 00000240 		.word	1073872896
+ 518 0070 00040240 		.word	1073873920
+ 519 0074 00080240 		.word	1073874944
+ 520              		.cfi_endproc
+ 521              	.LFE135:
+ 523              		.section	.bss.i,"aw",%nobits
+ 526              	i:
+ 527 0000 00       		.space	1
+ 528              		.text
+ 529              	.Letext0:
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 13
+
+
+ 530              		.file 2 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
+ 531              		.file 3 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
+ 532              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h"
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 init.c
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:21     .text.Register_Init:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:27     .text.Register_Init:00000000 Register_Init
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:44     .text.Register_Init:0000000c $d
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:49     .text.Led_Init:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:55     .text.Led_Init:00000000 Led_Init
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:118    .text.Led_Init:0000006c $d
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:123    .text.delay_but:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:129    .text.delay_but:00000000 delay_but
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:162    .text.delay_but:00000010 $d
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:167    .text.but:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:173    .text.but:00000000 but
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:292    .text.but:00000078 $d
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:526    .bss.i:00000000 i
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:298    .text.delay:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:304    .text.delay:00000000 delay
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:409    .text.delay:00000048 $d
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:416    .text.work:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:422    .text.work:00000000 work
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:517    .text.work:0000006c $d
+C:\Users\obukh\AppData\Local\Temp\cc0X8TRK.s:527    .bss.i:00000000 $d
+
+NO UNDEFINED SYMBOLS

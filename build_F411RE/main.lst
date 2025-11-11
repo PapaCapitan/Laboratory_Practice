@@ -1,0 +1,150 @@
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccAY1LAD.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Scr/main.c"
+  20              		.section	.text.main,"ax",%progbits
+  21              		.align	1
+  22              		.global	main
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	main:
+  28              	.LFB130:
+   1:Core/Scr/main.c **** #include "../Inc/init.h"
+   2:Core/Scr/main.c **** 
+   3:Core/Scr/main.c **** int main()
+   4:Core/Scr/main.c **** {
+  29              		.loc 1 4 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 83B0     		sub	sp, sp, #12
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 16
+   5:Core/Scr/main.c ****     uint8_t led[3][2];
+  40              		.loc 1 5 5 view .LVU1
+   6:Core/Scr/main.c ****     for (int i = 0; i < 3; i++)
+  41              		.loc 1 6 5 view .LVU2
+  42              	.LBB2:
+  43              		.loc 1 6 10 view .LVU3
+  44              	.LVL0:
+  45              		.loc 1 6 14 is_stmt 0 view .LVU4
+  46 0004 0021     		movs	r1, #0
+  47              		.loc 1 6 5 view .LVU5
+  48 0006 0AE0     		b	.L2
+  49              	.LVL1:
+  50              	.L3:
+  51              	.LBB3:
+   7:Core/Scr/main.c ****     {
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccAY1LAD.s 			page 2
+
+
+   8:Core/Scr/main.c ****         for (int j = 0; j < 2; j++)
+   9:Core/Scr/main.c ****         {
+  10:Core/Scr/main.c ****             led[i][j] = 0;
+  52              		.loc 1 10 13 is_stmt 1 view .LVU6
+  53              		.loc 1 10 23 is_stmt 0 view .LVU7
+  54 0008 02AA     		add	r2, sp, #8
+  55 000a 02EB4102 		add	r2, r2, r1, lsl #1
+  56 000e 1A44     		add	r2, r2, r3
+  57 0010 0020     		movs	r0, #0
+  58 0012 02F8080C 		strb	r0, [r2, #-8]
+   8:Core/Scr/main.c ****         {
+  59              		.loc 1 8 33 is_stmt 1 discriminator 3 view .LVU8
+  60 0016 0133     		adds	r3, r3, #1
+  61              	.LVL2:
+  62              	.L4:
+   8:Core/Scr/main.c ****         {
+  63              		.loc 1 8 27 discriminator 1 view .LVU9
+  64 0018 012B     		cmp	r3, #1
+  65 001a F5DD     		ble	.L3
+  66              	.LBE3:
+   6:Core/Scr/main.c ****     for (int i = 0; i < 3; i++)
+  67              		.loc 1 6 29 discriminator 2 view .LVU10
+  68 001c 0131     		adds	r1, r1, #1
+  69              	.LVL3:
+  70              	.L2:
+   6:Core/Scr/main.c ****     for (int i = 0; i < 3; i++)
+  71              		.loc 1 6 23 discriminator 1 view .LVU11
+  72 001e 0229     		cmp	r1, #2
+  73 0020 01DC     		bgt	.L8
+  74              	.LBB4:
+   8:Core/Scr/main.c ****         {
+  75              		.loc 1 8 18 is_stmt 0 view .LVU12
+  76 0022 0023     		movs	r3, #0
+  77 0024 F8E7     		b	.L4
+  78              	.L8:
+  79              	.LBE4:
+  80              	.LBE2:
+  11:Core/Scr/main.c ****         }
+  12:Core/Scr/main.c ****     }
+  13:Core/Scr/main.c ****     Register_Init();
+  81              		.loc 1 13 5 is_stmt 1 view .LVU13
+  82 0026 FFF7FEFF 		bl	Register_Init
+  83              	.LVL4:
+  14:Core/Scr/main.c ****     Led_Init();
+  84              		.loc 1 14 5 view .LVU14
+  85 002a FFF7FEFF 		bl	Led_Init
+  86              	.LVL5:
+  87              	.L5:
+  15:Core/Scr/main.c ****     while(1)
+  88              		.loc 1 15 5 view .LVU15
+  16:Core/Scr/main.c ****     {
+  17:Core/Scr/main.c ****         but(led);
+  89              		.loc 1 17 9 view .LVU16
+  90 002e 6846     		mov	r0, sp
+  91 0030 FFF7FEFF 		bl	but
+  92              	.LVL6:
+  18:Core/Scr/main.c ****         work(led);
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccAY1LAD.s 			page 3
+
+
+  93              		.loc 1 18 9 discriminator 1 view .LVU17
+  94 0034 6846     		mov	r0, sp
+  95 0036 FFF7FEFF 		bl	work
+  96              	.LVL7:
+  15:Core/Scr/main.c ****     while(1)
+  97              		.loc 1 15 10 view .LVU18
+  98 003a F8E7     		b	.L5
+  99              		.cfi_endproc
+ 100              	.LFE130:
+ 102              		.text
+ 103              	.Letext0:
+ 104              		.file 2 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
+ 105              		.file 3 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
+ 106              		.file 4 "Core/Scr/../Inc/init.h"
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccAY1LAD.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\obukh\AppData\Local\Temp\ccAY1LAD.s:21     .text.main:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\ccAY1LAD.s:27     .text.main:00000000 main
+
+UNDEFINED SYMBOLS
+Register_Init
+Led_Init
+but
+work
