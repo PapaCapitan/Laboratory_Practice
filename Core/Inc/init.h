@@ -3,7 +3,6 @@
 
 void Register_Init(void);
 void Led_Init(void);
-void delay_but(void);
-void but(uint8_t led[][2]);
-void delay(uint8_t a, uint8_t led[][2]);
-void work(uint8_t led[][2]);
+void but(uint8_t led[3][2]);
+void delay(uint8_t a, uint8_t led[3][2]);
+void work(uint8_t led[3][2]);
