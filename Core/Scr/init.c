@@ -1,5 +1,7 @@
 #include "../Inc/init.h"
-
+uint8_t led1_port = 0;
+uint8_t led2_port = 0;
+uint8_t led3_port = 0;
 void Register_Init(void)
 {
     SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOBEN | RCC_AHB1ENR_GPIOCEN | RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN);
@@ -28,14 +30,17 @@ void All_Ports_Input(void)
     GPIO_E_MODER &= CL_DEL_E;
     GPIO_E_OSPEEDR &= CL_DEL_E;
     Res_BIT(GPIO_B_BSRR, GPIO_B_BSRR_PB0_SET);
+    led1_port = 0;
     // Second Port
     *(uint32_t*)(0x40020C00UL + 0x00UL) &= 0x00;
     *(uint32_t*)(0x40020C00UL + 0x08UL) &= 0x00;
     *(uint32_t*)(0x40020400UL + 0x18UL) |= 0x800000;
+    led2_port = 0;
     // Third Port
     CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
     CLEAR_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
     SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR14);
+    led3_port = 0;
 }
 void All_Ports_Output(void)
 {
@@ -45,18 +50,21 @@ void All_Ports_Output(void)
     GPIO_E_OSPEEDR |= GPIO_E_OSPEED_PE0_MID;
     GPIO_E_PUPDR |= GPIO_E_PUPDR_PE0_NOPUPD;
     S_BIT(GPIO_E_BSRR, GPIO_E_BSRR_PE0_SET);
+    led1_port = 1;
     // Second Port
     *(uint32_t*)(0x40020C00UL + 0x00UL) |= 0x4000;
     *(uint32_t*)(0x40020C00UL + 0x04UL) |= 0x00;
     *(uint32_t*)(0x40020C00UL + 0x08UL) |= 0x4000;
     *(uint32_t*)(0x40020C00UL + 0x0CUL) |= 0x00;
     *(uint32_t*)(0x40020C00UL + 0x18UL) |= 0x80;
+    led2_port = 1;
     // Third Port
     SET_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
     CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_8);
     SET_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
     CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR8_0);
     SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS8);
+    led3_port = 1;
 }
 void First_Port_Output(void)
 {
@@ -66,47 +74,56 @@ void First_Port_Output(void)
     GPIO_E_OSPEEDR |= GPIO_E_OSPEED_PE0_MID;
     GPIO_E_PUPDR |= GPIO_E_PUPDR_PE0_NOPUPD;
     S_BIT(GPIO_E_BSRR, GPIO_E_BSRR_PE0_SET);
+    led1_port = 1;
     // Second Port
     *(uint32_t*)(0x40020C00UL + 0x00UL) &= 0x00;
     *(uint32_t*)(0x40020C00UL + 0x08UL) &= 0x00;
+    led2_port = 0;
     // Third Port
     CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
     CLEAR_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
+    led3_port = 0;
 }
 void Second_Port_Output(void)
 {
     // First Port
     GPIO_E_MODER &= CL_DEL_E;
     GPIO_E_OSPEEDR &= CL_DEL_E;
+    led1_port = 0;
     // Second Port
     *(uint32_t*)(0x40020C00UL + 0x00UL) |= 0x4000;
     *(uint32_t*)(0x40020C00UL + 0x04UL) |= 0x00;
     *(uint32_t*)(0x40020C00UL + 0x08UL) |= 0x4000;
     *(uint32_t*)(0x40020C00UL + 0x0CUL) |= 0x00;
     *(uint32_t*)(0x40020C00UL + 0x18UL) |= 0x80;
+    led2_port = 1;
     // Third Port
     CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
     CLEAR_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
+    led3_port = 0;
 }
 void Third_Port_Output(void)
 {
     // First Port
     GPIO_E_MODER &= CL_DEL_E;
     GPIO_E_OSPEEDR &= CL_DEL_E;
+    led1_port = 0;
     // Second Port
     *(uint32_t*)(0x40020C00UL + 0x00UL) &= 0x00;
     *(uint32_t*)(0x40020C00UL + 0x08UL) &= 0x00;
+    led2_port = 0;
     // Third Port
     SET_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
     CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_8);
     SET_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
     CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR8_0);
     SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS8);
+    led3_port = 1;
 }
 void delay(void)
 {
     int count = 0;
-    for (int i = 0; i <= 900000; i++)
+    for (int i = 0; i <= 500000; i++)
     {
         count++;
     }
