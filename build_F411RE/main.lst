@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
   48 000c 59E0     		b	.L2
   49              	.LVL3:
   50              	.L21:
-ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 2
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s 			page 2
 
 
    8:Core/Scr/main.c ****     while(1)
@@ -107,21 +107,21 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
   25:Core/Scr/main.c ****             case 4: Third_Port_Output(); break;
   26:Core/Scr/main.c ****             case 5: All_Ports_Output(); break;
   27:Core/Scr/main.c ****         }
-  28:Core/Scr/main.c ****         if ((READ_BIT(GPIOE->IDR, GPIO_IDR_IDR_0) != 0) && mode !=5 && mode != 2)
+  28:Core/Scr/main.c ****         if ((READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_13) == 0) && mode !=5 && mode != 2)
   77              		.loc 1 28 9 view .LVU15
   78              		.loc 1 28 14 is_stmt 0 view .LVU16
   79 0022 324B     		ldr	r3, .L22
   80 0024 1B69     		ldr	r3, [r3, #16]
   81              		.loc 1 28 12 view .LVU17
-  82 0026 13F0010F 		tst	r3, #1
-  83 002a 17D0     		beq	.L11
-  84              		.loc 1 28 57 discriminator 1 view .LVU18
+  82 0026 13F4005F 		tst	r3, #8192
+  83 002a 17D1     		bne	.L11
+  84              		.loc 1 28 58 discriminator 1 view .LVU18
   85 002c 052C     		cmp	r4, #5
   86 002e 15D0     		beq	.L11
-ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 3
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s 			page 3
 
 
-  87              		.loc 1 28 69 discriminator 2 view .LVU19
+  87              		.loc 1 28 70 discriminator 2 view .LVU19
   88 0030 022C     		cmp	r4, #2
   89 0032 13D0     		beq	.L11
   29:Core/Scr/main.c ****         {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
   31:Core/Scr/main.c ****         }
   32:Core/Scr/main.c ****         else
   33:Core/Scr/main.c ****         {
-ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 4
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s 			page 4
 
 
   34:Core/Scr/main.c ****             S_BIT(GPIO_B_BSRR, GPIO_B_BSRR_PB0_RESET);
@@ -228,7 +228,7 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
   44:Core/Scr/main.c ****         if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_8) != 0 && mode != 5 && mode != 4)
  161              		.loc 1 44 9 is_stmt 1 view .LVU43
  162              		.loc 1 44 13 is_stmt 0 view .LVU44
- 163 009a 174B     		ldr	r3, .L22+12
+ 163 009a 144B     		ldr	r3, .L22
  164 009c 1B69     		ldr	r3, [r3, #16]
  165              		.loc 1 44 12 view .LVU45
  166 009e 13F4807F 		tst	r3, #256
@@ -238,14 +238,14 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
  170 00a6 07D0     		beq	.L15
  171              		.loc 1 44 68 discriminator 2 view .LVU47
  172 00a8 042C     		cmp	r4, #4
-ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 5
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s 			page 5
 
 
  173 00aa 05D0     		beq	.L15
   45:Core/Scr/main.c ****         {
   46:Core/Scr/main.c ****             SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS14);
  174              		.loc 1 46 13 is_stmt 1 view .LVU48
- 175 00ac 134A     		ldr	r2, .L22+16
+ 175 00ac 124A     		ldr	r2, .L22+12
  176 00ae 9369     		ldr	r3, [r2, #24]
  177 00b0 43F48043 		orr	r3, r3, #16384
  178 00b4 9361     		str	r3, [r2, #24]
@@ -256,7 +256,7 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
   49:Core/Scr/main.c ****         {
   50:Core/Scr/main.c ****             SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR14);
  181              		.loc 1 50 13 view .LVU49
- 182 00b8 104A     		ldr	r2, .L22+16
+ 182 00b8 0F4A     		ldr	r2, .L22+12
  183 00ba 9369     		ldr	r3, [r2, #24]
  184 00bc 43F08043 		orr	r3, r3, #1073741824
  185 00c0 9361     		str	r3, [r2, #24]
@@ -268,7 +268,7 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
  189              		.loc 1 10 9 view .LVU51
   10:Core/Scr/main.c ****         {
  190              		.loc 1 10 13 is_stmt 0 view .LVU52
- 191 00c2 0D4B     		ldr	r3, .L22+12
+ 191 00c2 0A4B     		ldr	r3, .L22
  192 00c4 1B69     		ldr	r3, [r3, #16]
   10:Core/Scr/main.c ****         {
  193              		.loc 1 10 12 view .LVU53
@@ -293,31 +293,30 @@ ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 1
  211              	.L23:
  212              		.align	2
  213              	.L22:
- 214 00ec 00100240 		.word	1073876992
+ 214 00ec 00080240 		.word	1073874944
  215 00f0 00000240 		.word	1073872896
  216 00f4 000C0240 		.word	1073875968
- 217 00f8 00080240 		.word	1073874944
- 218 00fc 00040240 		.word	1073873920
-ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 6
+ 217 00f8 00040240 		.word	1073873920
+ 218              		.cfi_endproc
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s 			page 6
 
 
- 219              		.cfi_endproc
- 220              	.LFE130:
- 222              		.text
- 223              	.Letext0:
- 224              		.file 2 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
- 225              		.file 3 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
- 226              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F429xx/stm32f429xx.h"
- 227              		.file 5 "Core/Scr/../Inc/init.h"
-ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s 			page 7
+ 219              	.LFE130:
+ 221              		.text
+ 222              	.Letext0:
+ 223              		.file 2 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
+ 224              		.file 3 "C:/Users/obukh/OneDrive/\320\240\320\260\320\261\320\276\321\207\320\270\320\271 \321\201
+ 225              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h"
+ 226              		.file 5 "Core/Scr/../Inc/init.h"
+ARM GAS  C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s:21     .text.main:00000000 $t
-C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s:27     .text.main:00000000 main
-C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s:205    .text.main:000000d8 $d
-C:\Users\obukh\AppData\Local\Temp\ccHYGLMt.s:214    .text.main:000000ec $d
+C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s:21     .text.main:00000000 $t
+C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s:27     .text.main:00000000 main
+C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s:205    .text.main:000000d8 $d
+C:\Users\obukh\AppData\Local\Temp\ccth45Yw.s:214    .text.main:000000ec $d
 
 UNDEFINED SYMBOLS
 Register_Init
