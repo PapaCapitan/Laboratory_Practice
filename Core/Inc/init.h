@@ -27,7 +27,6 @@
 #define GPIO_E_BSRR_PE0_SET 0x01UL
 #define GPIO_E_BSRR_PE0_RESET 0x10000UL
 
-#define Res_BIT(R, B) (R &= B)
 #define S_BIT(R, B) (R |= B)
 
 #define CL_DEL_E 0x00
@@ -40,3 +39,7 @@ void First_Port_Output(void);
 void Second_Port_Output(void);
 void Third_Port_Output(void);
 void delay(void);
+
+
+
+
