@@ -1,151 +1,113 @@
 #include "../Inc/init.h"
 
-static uint8_t i = 0;
-uint16_t flag = 0;
-uint16_t flag1 = 0;
-
 void Register_Init(void)
 {
-    SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN | RCC_AHB1ENR_GPIOBEN | RCC_AHB1ENR_GPIOCEN);
+    SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOBEN | RCC_AHB1ENR_GPIOCEN | RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN);
 }
 void Led_Init(void)
 {
     // First Led (green)
-    SET_BIT(GPIOA->MODER, GPIO_MODER_MODE4_0);
-    CLEAR_BIT(GPIOA->OTYPER, GPIO_OTYPER_OT_4);
-    SET_BIT(GPIOA->OSPEEDR, GPIO_OSPEEDR_OSPEED4_0);
-    CLEAR_BIT(GPIOA->PUPDR, GPIO_PUPDR_PUPDR4_0);
+    GPIO_B_MODER |= GPIO_B_MODE_PB0_OUT;
+    GPIO_B_OTYPER |= GPIO_B_OTYPE_PB0_PP;
+    GPIO_B_OSPEEDR |= GPIO_B_OSPEED_PB0_MID;
+    GPIO_B_PUPDR |= GPIO_B_PUPDR_PB0_NOPUPD;
     // Second Led (blue)
-    SET_BIT(GPIOB->MODER, GPIO_MODER_MODE0_0);
-    CLEAR_BIT(GPIOB->OTYPER, GPIO_OTYPER_OT_0);
-    SET_BIT(GPIOB->OSPEEDR, GPIO_OSPEEDR_OSPEED0_0);
-    CLEAR_BIT(GPIOB->PUPDR, GPIO_PUPDR_PUPDR0_0);
+    *(uint32_t*)(0x40020400UL + 0x00UL) |= 0x4000;
+    *(uint32_t*)(0x40020400UL + 0x04UL) |= 0x00;
+    *(uint32_t*)(0x40020400UL + 0x08UL) |= 0x4000;
+    *(uint32_t*)(0x40020400UL + 0x0CUL) |= 0x00;
     // Third Led (red)
-    SET_BIT(GPIOC->MODER, GPIO_MODER_MODE1_0);
-    CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_1);
-    SET_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED1_0);
-    CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR1_0);
+    SET_BIT(GPIOB->MODER, GPIO_MODER_MODE14_0);
+    CLEAR_BIT(GPIOB->OTYPER, GPIO_OTYPER_OT_14);
+    SET_BIT(GPIOB->OSPEEDR, GPIO_OSPEEDR_OSPEED14_0);
+    CLEAR_BIT(GPIOB->PUPDR, GPIO_PUPDR_PUPDR14_0);
 }
-void but(uint8_t led[3][2])
+void All_Ports_Input(void)
 {
-    uint64_t count = 0;
-    if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_8) != 0)
-    {
-        while (count < 400000)
-        {
-            count++;
-        }
-        if (led[i][0] == 0)
-        {
-            led[i][0] = 1;
-        }
-        else
-        {
-            led[i][0] = 0;
-        }
-    }
-    if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_6) != 0)
-    {
-        while (count < 500000)
-        {
-            count++;
-        }
-        if (led[i][1] == 0)
-        {
-            led[i][1] = 1;
-        }
-        else if (led[i][1] == 1)
-        {
-            led[i][1] = 2;
-        }
-        else if (led[i][1] == 2)
-        {
-            led[i][1] = 0;
-        }
-    }
-    if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_5) != 0)
-    {
-        while (count < 500000)
-        {
-            count++;
-        }
-        if (i == 0)
-        {
-            i = 1;
-        }
-        else if (i == 1)
-        {
-            i = 2;
-        }
-        else if (i == 2)
-        {
-            i = 0;
-        }
-    }
+    // First Port
+    GPIO_E_MODER &= CL_DEL_E;
+    GPIO_E_OSPEEDR &= CL_DEL_E;
+    Res_BIT(GPIO_B_BSRR, GPIO_B_BSRR_PB0_SET);
+    // Second Port
+    *(uint32_t*)(0x40020C00UL + 0x00UL) &= 0x00;
+    *(uint32_t*)(0x40020C00UL + 0x08UL) &= 0x00;
+    *(uint32_t*)(0x40020400UL + 0x18UL) |= 0x800000;
+    // Third Port
+    CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
+    CLEAR_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
+    SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR14);
 }
-void delay(uint8_t a, uint8_t led[3][2])
+void All_Ports_Output(void)
 {
-    if (a == 0)
-    {
-        for (int j = 0; j < 100000; j++)
-        {
-            but(led);
-        }
-    }
-    else if (a == 1)
-    {
-        for (int j = 0; j < 700000; j++)
-        {
-            but(led);
-        }
-    }
-    else
-    {
-        for (int j = 0; j < 2000000; j++)
-        {
-            but(led);
-        }
-    }
+    // First Port
+    GPIO_E_MODER |= GPIO_E_MODE_PE0_OUT;
+    GPIO_E_OTYPER |= GPIO_E_OTYPE_PE0_PP;
+    GPIO_E_OSPEEDR |= GPIO_E_OSPEED_PE0_MID;
+    GPIO_E_PUPDR |= GPIO_E_PUPDR_PE0_NOPUPD;
+    S_BIT(GPIO_E_BSRR, GPIO_E_BSRR_PE0_SET);
+    // Second Port
+    *(uint32_t*)(0x40020C00UL + 0x00UL) |= 0x4000;
+    *(uint32_t*)(0x40020C00UL + 0x04UL) |= 0x00;
+    *(uint32_t*)(0x40020C00UL + 0x08UL) |= 0x4000;
+    *(uint32_t*)(0x40020C00UL + 0x0CUL) |= 0x00;
+    *(uint32_t*)(0x40020C00UL + 0x18UL) |= 0x80;
+    // Third Port
+    SET_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
+    CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_8);
+    SET_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
+    CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR8_0);
+    SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS8);
 }
-void work(uint8_t led[3][2])
+void First_Port_Output(void)
 {
-    if (led[0][0] == 1)
+    // First Port
+    GPIO_E_MODER |= GPIO_E_MODE_PE0_OUT;
+    GPIO_E_OTYPER |= GPIO_E_OTYPE_PE0_PP;
+    GPIO_E_OSPEEDR |= GPIO_E_OSPEED_PE0_MID;
+    GPIO_E_PUPDR |= GPIO_E_PUPDR_PE0_NOPUPD;
+    S_BIT(GPIO_E_BSRR, GPIO_E_BSRR_PE0_SET);
+    // Second Port
+    *(uint32_t*)(0x40020C00UL + 0x00UL) &= 0x00;
+    *(uint32_t*)(0x40020C00UL + 0x08UL) &= 0x00;
+    // Third Port
+    CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
+    CLEAR_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
+}
+void Second_Port_Output(void)
+{
+    // First Port
+    GPIO_E_MODER &= CL_DEL_E;
+    GPIO_E_OSPEEDR &= CL_DEL_E;
+    // Second Port
+    *(uint32_t*)(0x40020C00UL + 0x00UL) |= 0x4000;
+    *(uint32_t*)(0x40020C00UL + 0x04UL) |= 0x00;
+    *(uint32_t*)(0x40020C00UL + 0x08UL) |= 0x4000;
+    *(uint32_t*)(0x40020C00UL + 0x0CUL) |= 0x00;
+    *(uint32_t*)(0x40020C00UL + 0x18UL) |= 0x80;
+    // Third Port
+    CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
+    CLEAR_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
+}
+void Third_Port_Output(void)
+{
+    // First Port
+    GPIO_E_MODER &= CL_DEL_E;
+    GPIO_E_OSPEEDR &= CL_DEL_E;
+    // Second Port
+    *(uint32_t*)(0x40020C00UL + 0x00UL) &= 0x00;
+    *(uint32_t*)(0x40020C00UL + 0x08UL) &= 0x00;
+    // Third Port
+    SET_BIT(GPIOC->MODER, GPIO_MODER_MODE8_0);
+    CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_8);
+    SET_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEED8_0);
+    CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR8_0);
+    SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS8);
+}
+void delay(void)
+{
+    int count = 0;
+    for (int i = 0; i <= 900000; i++)
     {
-        SET_BIT(GPIOA->BSRR, GPIO_BSRR_BS4);
-        delay(led[0][1], led);
-        SET_BIT(GPIOA->BSRR, GPIO_BSRR_BR4);
-        if (led[1][0] != 0 || led[2][0] != 0)
-        {
-        }
-        else
-        {
-            delay(led[0][1], led);
-        }
-    }
-    if (led[1][0] == 1)
-    {
-        SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS0);
-        delay(led[1][1], led);
-        SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR0);
-        if (led[0][0] != 0 || led[2][0] != 0)
-        {
-        }
-        else
-        {
-            delay(led[1][1], led);
-        }
-    }
-    if (led[2][0] == 1)
-    {
-        SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS1);
-        delay(led[2][1], led);
-        SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR1);
-        if (led[1][0] != 0 || led[0][0] != 0)
-        {
-        }
-        else
-        {
-            delay(led[2][1], led);
-        }
+        count++;
     }
 }
