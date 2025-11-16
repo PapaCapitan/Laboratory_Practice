@@ -14,7 +14,7 @@ int main()
     Led_Init();
     while(1)
     {
-        if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_13) == 0)
+        if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_13) != 0)
         {
             delay();
             but4++;
