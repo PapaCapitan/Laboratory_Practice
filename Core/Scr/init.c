@@ -46,7 +46,7 @@ void but(uint8_t led[3][2])
     }
     if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_6) != 0)
     {
-        while (count < 500000)
+        while (count < 400000)
         {
             count++;
         }
@@ -65,7 +65,7 @@ void but(uint8_t led[3][2])
     }
     if (READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_5) != 0)
     {
-        while (count < 500000)
+        while (count < 400000)
         {
             count++;
         }
