@@ -1,5 +1,5 @@
 #include "../../CMSIS/Devices/STM32F4xx/Inc/stm32f4xx.h"
-#include "../../CMSIS/Devices/STM32F4xx/Inc/STM32F429ZI/stm32f429xx.h"
+#include "../../CMSIS/Devices/STM32F4xx/Inc/STM32F429xx/stm32f429xx.h"
 
 #define GPIO_B_MODER  (*(uint32_t*)(0x40020400UL + 0x00UL))
 #define GPIO_B_OTYPER (*(uint32_t*)(0x40020400UL + 0x04UL))
@@ -27,7 +27,7 @@
 #define GPIO_B_BSRR_PB0_SET 0x01UL
 #define GPIO_B_BSRR_PB0_RESET 0x10000UL
 
-#define Res_BIT(R, B) (R & B)
+#define Res_BIT(R, B) (R &= B)
 #define S_BIT(R, B) (R |= B)
 
 #define CL_DEL_E 0x00
