@@ -128,11 +128,7 @@ void Third_Port_Output(void)
 }
 void delay(void)
 {
-    int count = 0;
-    for (int i = 0; i <= 500000; i++)
-    {
-        count++;
-    }
+    for (int i = 0; i <= 500000; i++);
 }
 
 
