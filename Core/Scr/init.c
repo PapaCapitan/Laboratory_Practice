@@ -128,7 +128,11 @@ void Third_Port_Output(void)
 }
 void delay(void)
 {
-    for (int i = 0; i <= 500000; i++);
+    uint64_t count = 0;
+    while (count < 400000)
+    {
+        count++;
+    }
 }
 
 
